@@ -1,0 +1,15 @@
+# Kafka Python Dependencies
+# ==========================
+# Install with: pip install -r requirements.txt
+
+# Core Kafka client
+kafka-python>=2.0.2
+
+# Alternative high-performance client (optional)
+# confluent-kafka>=2.3.0
+
+# For avro serialization (optional)
+# fastavro>=1.9.0
+
+# For schema registry (optional)
+# python-schema-registry-client>=2.6.0
