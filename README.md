@@ -11,6 +11,7 @@
 | [Module 01](./module-01-api-types/) | **API Types** | REST, SOAP, gRPC, GraphQL, Webhooks, WebSockets, WebRTC |
 | [Module 02](./module-02-kafka/) | **Apache Kafka** | Message queues, event streaming, Python simulations & real implementation |
 | [Module 03](./module-03-deep-learning-foundations/) | **Deep Learning Foundations** | Linear algebra, probability, optimization, ML basics, neural networks (Goodfellow Ch. 2-6) |
+| [Module 04](./module-04-python-oop-typescript/) | **Python OOP & TypeScript** | Classes, inheritance, polymorphism, dunder methods, design patterns — Jupyter notebooks + TS exercises |
 
 ---
 
@@ -57,7 +58,8 @@ For Interview Prep:
 - [ ] Module 01: API Types
 - [ ] Module 02: Apache Kafka
 - [ ] Module 03: Deep Learning Foundations
-- [ ] (Coming Soon) Module 04: Databases & Caching
+- [ ] Module 04: Python OOP & TypeScript
+- [ ] (Coming Soon) Module 05: Databases & Caching
 - [ ] (Coming Soon) Module 05: Load Balancing & CDNs
 - [ ] (Coming Soon) Module 06: Microservices Patterns
 
