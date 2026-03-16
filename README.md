@@ -12,6 +12,8 @@
 | [Module 02](./module-02-kafka/) | **Apache Kafka** | Message queues, event streaming, Python simulations & real implementation |
 | [Module 03](./module-03-deep-learning-foundations/) | **Deep Learning Foundations** | Linear algebra, probability, optimization, ML basics, neural networks (Goodfellow Ch. 2-6) |
 | [Module 04](./module-04-python-oop-typescript/) | **Python OOP & TypeScript** | Classes, inheritance, polymorphism, dunder methods, design patterns — Jupyter notebooks + TS exercises |
+| [Module 05](./module-05-coding-interview-prep/) | **Coding Interview Prep** | DSA patterns, LeetCode strategies |
+| [Module 06](./module-06-java-for-data-engineers/) | **Java for Data Engineers** | JVM internals, GC tuning, OOP, Maven/sbt, Spark UDFs, reading stack traces |
 
 ---
 
@@ -59,9 +61,8 @@ For Interview Prep:
 - [ ] Module 02: Apache Kafka
 - [ ] Module 03: Deep Learning Foundations
 - [ ] Module 04: Python OOP & TypeScript
-- [ ] (Coming Soon) Module 05: Databases & Caching
-- [ ] (Coming Soon) Module 05: Load Balancing & CDNs
-- [ ] (Coming Soon) Module 06: Microservices Patterns
+- [ ] Module 05: Coding Interview Prep
+- [ ] Module 06: Java for Data Engineers
 
 ---
 

@@ -268,3 +268,228 @@ class TypedEventBus<T extends Record<string, any>> {
 }
 
 console.log("✓ All solutions compile and run correctly");
+
+// =====================================================================
+// 04 — AppConfig (Singleton)
+// =====================================================================
+
+class AppConfig {
+  private static _instance: AppConfig | undefined;
+  private store: Record<string, unknown> = {};
+
+  private constructor() {}
+
+  static getInstance(): AppConfig {
+    if (!AppConfig._instance) {
+      AppConfig._instance = new AppConfig();
+    }
+    return AppConfig._instance;
+  }
+
+  set(key: string, value: unknown): void {
+    this.store[key] = value;
+  }
+
+  get(key: string, defaultValue?: unknown): unknown {
+    return key in this.store ? this.store[key] : defaultValue;
+  }
+
+  all(): Record<string, unknown> {
+    return { ...this.store };
+  }
+
+  reset(): void {
+    this.store = {};
+  }
+}
+
+// =====================================================================
+// 04 — Logger Factory (Factory Method)
+// =====================================================================
+
+interface ILogger {
+  log(message: string): string;
+}
+
+class ConsoleLogHandler implements ILogger {
+  log(message: string): string {
+    return `[CONSOLE] ${message}`;
+  }
+}
+
+class FileLogHandler implements ILogger {
+  constructor(private path: string) {}
+
+  log(message: string): string {
+    return `[FILE:${this.path}] ${message}`;
+  }
+}
+
+class JsonLogHandler implements ILogger {
+  log(message: string): string {
+    return JSON.stringify({ level: "INFO", message });
+  }
+}
+
+function createLogger(backend: string, ...args: string[]): ILogger {
+  switch (backend) {
+    case "console":
+      return new ConsoleLogHandler();
+    case "file":
+      return new FileLogHandler(args[0]);
+    case "json":
+      return new JsonLogHandler();
+    default:
+      throw new Error(`Unknown logger backend: ${backend}`);
+  }
+}
+
+// =====================================================================
+// 04 — ShoppingCart (Strategy Pattern)
+// =====================================================================
+
+interface DiscountStrategy {
+  apply(prices: number[]): number;
+}
+
+class NoDiscount implements DiscountStrategy {
+  apply(prices: number[]): number {
+    return prices.reduce((sum, p) => sum + p, 0);
+  }
+}
+
+class PercentageDiscount implements DiscountStrategy {
+  constructor(private percent: number) {}
+
+  apply(prices: number[]): number {
+    const total = prices.reduce((sum, p) => sum + p, 0);
+    return total * (1 - this.percent / 100);
+  }
+}
+
+class BuyOneGetOne implements DiscountStrategy {
+  apply(prices: number[]): number {
+    if (prices.length === 0) return 0;
+    const total = prices.reduce((sum, p) => sum + p, 0);
+    return total - Math.min(...prices);
+  }
+}
+
+class ThresholdDiscount implements DiscountStrategy {
+  constructor(private threshold: number, private saving: number) {}
+
+  apply(prices: number[]): number {
+    const total = prices.reduce((sum, p) => sum + p, 0);
+    return total >= this.threshold ? total - this.saving : total;
+  }
+}
+
+class ShoppingCart {
+  private items: { name: string; price: number }[] = [];
+  private strategy: DiscountStrategy = new NoDiscount();
+
+  addItem(name: string, price: number): void {
+    this.items.push({ name, price });
+  }
+
+  setStrategy(strategy: DiscountStrategy): void {
+    this.strategy = strategy;
+  }
+
+  total(): number {
+    return this.strategy.apply(this.items.map((i) => i.price));
+  }
+}
+
+// =====================================================================
+// 04 — StockMarket (Observer Pattern)
+// =====================================================================
+
+interface StockObserver {
+  update(ticker: string, price: number): void;
+}
+
+class StockMarket {
+  private observers: StockObserver[] = [];
+
+  subscribe(observer: StockObserver): void {
+    this.observers.push(observer);
+  }
+
+  unsubscribe(observer: StockObserver): void {
+    this.observers = this.observers.filter((o) => o !== observer);
+  }
+
+  setPrice(ticker: string, price: number): void {
+    this.observers.forEach((o) => o.update(ticker, price));
+  }
+}
+
+class PriceLogger implements StockObserver {
+  history: { ticker: string; price: number }[] = [];
+
+  update(ticker: string, price: number): void {
+    this.history.push({ ticker, price });
+  }
+}
+
+class PriceAlert implements StockObserver {
+  alerts: string[] = [];
+
+  constructor(private threshold: number) {}
+
+  update(ticker: string, price: number): void {
+    if (price > this.threshold) {
+      this.alerts.push(`ALERT: ${ticker} exceeded ${this.threshold} at ${price}`);
+    }
+  }
+}
+
+class Portfolio implements StockObserver {
+  value: number = 0;
+
+  constructor(private ticker: string, private shares: number) {}
+
+  update(ticker: string, price: number): void {
+    if (ticker === this.ticker) {
+      this.value = this.shares * price;
+    }
+  }
+}
+
+// =====================================================================
+// 04 — Coffee Order (Decorator Pattern)
+// =====================================================================
+
+interface Beverage {
+  cost(): number;
+  description(): string;
+}
+
+class Espresso implements Beverage {
+  cost(): number { return 2.00; }
+  description(): string { return "Espresso"; }
+}
+
+abstract class CondimentDecorator implements Beverage {
+  constructor(protected beverage: Beverage) {}
+  abstract cost(): number;
+  abstract description(): string;
+}
+
+class MilkDecorator extends CondimentDecorator {
+  cost(): number { return this.beverage.cost() + 0.50; }
+  description(): string { return this.beverage.description() + ", Milk"; }
+}
+
+class SugarDecorator extends CondimentDecorator {
+  cost(): number { return this.beverage.cost() + 0.25; }
+  description(): string { return this.beverage.description() + ", Sugar"; }
+}
+
+class WhipDecorator extends CondimentDecorator {
+  cost(): number { return this.beverage.cost() + 0.75; }
+  description(): string { return this.beverage.description() + ", Whip"; }
+}
+
+console.log("✓ All 04 solutions compile correctly");
