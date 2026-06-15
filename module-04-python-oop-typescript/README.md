@@ -32,6 +32,30 @@ Progress through these in order — each builds on the previous:
 
 ---
 
+## CDK (Infrastructure as Code)
+
+Practice writing AWS CDK stack definitions in TypeScript — modeled on a real
+Kafka/Glue/Step-Functions ETL pipeline. Each exercise mirrors one stack from
+that project so you can confidently answer "how did you write the stack
+definition / app.ts?" in an interview.
+
+| # | File | Concepts | Exercise |
+|---|------|----------|----------|
+| 01 | [Storage Stack](typescript/cdk/exercises/01_storage_stack.ts) | `cdk.Stack`, `StackProps`, `readonly` exports, `s3.Bucket`, `RemovalPolicy`, `CfnOutput` | `StorageStack` (3 buckets, lifecycle rule) |
+| 02 | [Glue Stack](typescript/cdk/exercises/02_glue_stack.ts) | L1 constructs (`CfnDatabase`/`CfnJob`/`CfnCrawler`), `iam.Role`, `grantRead`/`grantReadWrite`, cross-stack props | `GlueStack` (catalog DB, ETL job, crawler) |
+| 03 | [Orchestration Stack](typescript/cdk/exercises/03_orchestration_stack.ts) | `sfn.Succeed`/`Fail`, `tasks.GlueStartJobRun`, `.addCatch()`, Wait/Choice polling loop, `DefinitionBody.fromChainable` | `OrchestrationStack` (Step Functions state machine) |
+| 04 | [App Wiring](typescript/cdk/exercises/04_app_wiring.ts) | `cdk.App`, `cdk.Environment`, cross-stack references (`Fn::ImportValue`), `app.synth()` | bin/app.ts pattern across 3 stacks |
+
+**Solutions:** [all_solutions.ts](typescript/cdk/solutions/all_solutions.ts)
+
+```bash
+cd typescript/cdk
+npm install   # one-time — installs aws-cdk-lib + constructs
+npx tsx exercises/01_storage_stack.ts
+```
+
+---
+
 ## How to Use
 
 ### Python

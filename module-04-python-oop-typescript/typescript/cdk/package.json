@@ -1,0 +1,16 @@
+{
+  "name": "cdk-exercises",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CDK TypeScript practice module — stack definitions, L1/L2 constructs, app.ts wiring",
+  "devDependencies": {
+    "@types/node": "20.11.5",
+    "ts-node": "10.9.2",
+    "tsx": "^4.7.0",
+    "typescript": "5.3.3"
+  },
+  "dependencies": {
+    "aws-cdk-lib": "^2.258.0",
+    "constructs": "^10.5.0"
+  }
+}
